@@ -1,63 +1,56 @@
 # WikiGolf
 
+<img src="WikiGolf_Title.png" alt="WikiGolf Title">
+
+
 ## 概要
 
-WikiGolfは、あるWikipediaページから別のページへの「意味的に最も近い」経路を見つけるためのPythonスクリプトです。
+あるWikipediaページから別のページへの経路を見つける。
 
-一般的な最短経路探索とは異なり、このツールは[Word2Vec](https://radimrehurek.com/gensim/models/word2vec.html)モデルを利用して、各ページのリンクの中からゴールページと意味的に最も関連性の高いリンクを優先的にたどります。これにより、単にクリック数が少ないだけでなく、内容的に関連の深い経路を発見することを目指します。
+このプログラムは[Word2Vec](https://radimrehurek.com/gensim/models/word2vec.html)モデルを利用して、各ページのリンクの中からゴールページと意味的に最も関連性の高いリンクを優先的にたどる。
 
-このプロジェクトは、いわゆる「ウィキゴルフ」や「ウィキレーシング」を、計算言語学的なアプローチで解く試みです。
+
 
 ## 特徴
 
-- 日本語のWikipediaに対応
-- Word2Vecによる意味的類似度に基づいた経路探索
-- 探索の深さや一度に考慮するリンク数を調整可能
-
-## 動作要件
-
-- Python 3.x
-- 必要なライブラリ (詳細は `requirements.txt` を参照)
-- 日本語Word2Vecモデル
+- 日本語のWikipediaのみに対応 (This program is only designed for Japanese Wikipedia)。
+- Word2Vecモデルを用いたコサイン類似度に基づいた経路探索
+  - コサイン類似度が高い順番にn個のページを展開し，幅優先探索を行う。
 
 ## セットアップ
 
-1.  **リポジトリをクローンします。**
+1.  **リポジトリのクローン**
     ```bash
-    git clone https://github.com/YOUR_USERNAME/WikiGolf.git
-    cd WikiGolf
+    git clone https://github.com/Haru26g/WikiGolf.git
     ```
 
-2.  **必要なPythonライブラリをインストールします。**
+2.  **必要なPythonライブラリのインストール**
     ```bash
     pip install -r requirements.txt
     ```
 
-3.  **Word2Vecモデルをダウンロードします。**
+3. **Word2Vecモデルのダウンロード**
 
-    このプロジェクトでは、WikiEntVecで公開されている日本語Wikipediaの学習済みモデルを使用します。
+    [WikiEntVec](https://github.com/singletongue/WikiEntVec)からモデルをダウンロードし、プロジェクトディレクトリに配置します。
 
-    -   上記リポジトリから、`jawiki.all_vectors.100d.txt.bz2` などのモデルファイルをダウンロードしてください。
-    -   ダウンロードしたファイルを解凍します (例: `bzip2 -d jawiki.all_vectors.100d.txt.bz2`)。
-    -   解凍してできた `.txt` ファイルを、このプロジェクトのディレクトリ内に配置するか、任意の場所に置いてください。
+4.  **(必要があれば)スクリプト内のWord2Vecモデルパスの編集**
 
-4.  **スクリプト内のモデルパスを編集します。**
-
-    `WikiGolf_ja.py` を開き、`model_path` の値を、ステップ3で配置したモデルファイルの実際のパスに書き換えてください。
+    `WikiGolf_ja.py` の中の、`model_path` の値をWord2Vecモデルのパスに書き換える。
 
     ```python
     # WikiGolf_ja.py の main() 関数内
-    model_path = r'C:\path\to\your\jawiki.all_vectors.100d.txt'
+    model_path = 'jawiki.all_vectors.100d.txt'
     ```
 
-## 使い方
+## 実行
 
-1.  ターミナルでスクリプトを実行します。
+1.  ターミナルでスクリプトを実行する。
     ```bash
     python WikiGolf_ja.py
     ```
 
-2.  プロンプトに従って、Wikipedia APIのユーザーエージェントとして使用するメールアドレスを入力します。
+2.  Wikipedia APIのユーザーエージェントとして使用するメールアドレスを入力する。  
+    これは、Wikipedia APIの利用規約に従うために必要です。
 
 3.  「Startページ」と「Goalページ」のタイトルをそれぞれ入力します。
 
@@ -68,26 +61,32 @@ WikiGolfは、あるWikipediaページから別のページへの「意味的に
 モデルの読み込みが完了しました。
 
 Startページを入力してください (終了するにはEnterキーのみ): 量子力学
-Goalページを入力してください: 相対性理論
+Goalページを入力してください: イヌ
 
-探索開始: 量子力学 -> 相対性理論
+探索開始: 量子力学 -> イヌ
 探索中 (深さ 1): 量子力学
-探索中 (深さ 2): 物理学
-ゴールに到達しました！ ステップ数: 2
+探索中 (深さ 2): 生物
+探索中 (深さ 2): 相補性
+探索中 (深さ 2): 宇宙
+探索中 (深さ 2): 局所性
+探索中 (深さ 2): 量子もつれ
+探索中 (深さ 2): 黒点
+探索中 (深さ 2): 確率
+探索中 (深さ 2): 科学
+探索中 (深さ 2): 電磁波
+探索中 (深さ 2): 分子
+探索中 (深さ 3): 動物
+ゴールに到達しました！ ステップ数: 3
 
 --- 発見した経路 ---
-量子力学 → 物理学 → 相対性理論
+量子力学 → 生物 → 動物 → イヌ
 --------------------
 ```
 
 ## ライセンス
 
-### ソースコード
-このプロジェクトのソースコードは MIT License の下で公開されています。
+このリポジトリに含まれるソースコード (`.py` ファイル) は、MIT License の下で配布されています。
 
-### Word2Vecモデル
-このプロジェクトで使用しているWord2Vecモデルは、WikiEntVec プロジェクトによって作成されたものであり、Creative Commons Attribution-ShareAlike 3.0 ライセンスの下で提供されています。モデルの利用にあたっては、このライセンス条項に従ってください。
+本プロジェクトで利用する学習済みWord2Vecモデルは、[WikiEntVec](https://github.com/singletongue/WikiEntVec)で公開されたものを使用しています。
 
-## 謝辞
-
-素晴らしい日本語Word2Vecモデルを公開してくださっている WikiEntVec の開発者様に感謝申し上げます。
+配布元のライセンスに従い、この学習済みベクトル（モデル）は **Creative Commons Attribution-ShareAlike 3.0** の下で配布されています。

@@ -3,20 +3,11 @@ from gensim.models import KeyedVectors
 import collections
 
 class WikiGolfer:
-    """
-    Wikipediaページ間の経路を探索する機能を提供するクラス。
-    """
     def __init__(self, user_agent, model_path):
-        """
-        WikiGolferのインスタンスを初期化します。
-        """
         self.wiki_api = wikipediaapi.Wikipedia(user_agent, 'ja')
         self.model = self._load_model(model_path)
 
     def _load_model(self, model_path):
-        """
-        指定されたパスからWord2Vecモデルをロードします。
-        """
         try:
             print("モデルを読み込んでいます... (これには数分かかる場合があります)")
             model = KeyedVectors.load_word2vec_format(model_path, binary=False)
@@ -28,14 +19,11 @@ class WikiGolfer:
 
     def find_path(self, start_title, goal_title, max_depth=50, branching_factor=10):
         """
-        開始ページから目的ページへの経路を幅優先探索（BFS）で探します。
-
         Args:
             start_title (str): 開始ページのタイトル。
             goal_title (str): 目的ページのタイトル。
             max_depth (int): 探索する最大の深さ。
             branching_factor (int): 各ノードからキューに追加する最大ページ数。
-
         Returns:
             list[str] or None: 発見した経路のリスト。見つからない場合はNone。
         """
@@ -58,7 +46,6 @@ class WikiGolfer:
         while queue:
             current_page, path = queue.popleft()
 
-            # 現在の深さを表示
             print(f"探索中 (深さ {len(path)}): {current_page.title}")
 
             if len(path) > max_depth:
@@ -98,12 +85,9 @@ class WikiGolfer:
         return None # 経路が見つからなかった場合
 
 def main():
-    """
-    ターミナルでユーザーからの入力を受け付け、WikiGolfを実行するメイン関数。
-    """
     email_address = input("ユーザーエージェント用のメールアドレスを入力してください: ")
     user_agent = f'WikiShortestPath ({email_address})'
-    model_path = r'C:\Users\Owner\MyPython\source code\WikiGolf\jawiki.all_vectors.100d.txt'
+    model_path = 'jawiki.all_vectors.100d.txt'
 
     golfer = WikiGolfer(user_agent, model_path)
 
