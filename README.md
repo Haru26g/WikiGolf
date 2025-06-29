@@ -1,6 +1,6 @@
 # WikiGolf
 
-<img src="WikiGolf_Title.png" alt="WikiGolf Title">
+<img src="images/WikiGolf_Title.png" alt="WikiGolf Title">
 
 
 ## 概要
