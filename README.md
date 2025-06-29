@@ -5,17 +5,17 @@
 
 ## 概要
 
-あるWikipediaページから別のページへの経路を見つける。
+あるWikipediaページから別のページへの経路を見つけます。
 
-このプログラムは[Word2Vec](https://radimrehurek.com/gensim/models/word2vec.html)モデルを利用して、各ページのリンクの中からゴールページと意味的に最も関連性の高いリンクを優先的にたどる。
+このプログラムは[Word2Vec](https://radimrehurek.com/gensim/models/word2vec.html)モデルを利用して、各ページのリンクの中からゴールページと意味的に最も関連性の高いリンクを優先的にたどります。
 
 
 
 ## 特徴
 
-- 日本語のWikipediaのみに対応 (This program is only designed for Japanese Wikipedia)。
-- Word2Vecモデルを用いたコサイン類似度に基づいた経路探索
-  - コサイン類似度が高い順番にn個のページを展開し，幅優先探索を行う。
+- 日本語のWikipediaのみに対応 (This program is only designed for Japanese Wikipedia)しています。
+- Word2Vecモデルを用います。
+  - コサイン類似度が高い順番にn個のページを展開し，幅優先探索を行います。
 
 ## セットアップ
 
@@ -31,25 +31,25 @@
 
 3. **Word2Vecモデルのダウンロード**
 
-    [WikiEntVec](https://github.com/singletongue/WikiEntVec)からモデルをダウンロードし、プロジェクトディレクトリに配置します。
+    [WikiEntVec](https://github.com/singletongue/WikiEntVec)からモデルをダウンロードし、プロジェクトディレクトリに`jawiki.all_vectors.100d.txt`を配置します。
 
-4.  **(必要があれば)スクリプト内のWord2Vecモデルパスの編集**
+4.  **(必要があれば) スクリプト内のWord2Vecモデルパスの編集**
 
-    `WikiGolf_ja.py` の中の、`model_path` の値をWord2Vecモデルのパスに書き換える。
+    `WikiGolf_ja.py` の中の、`model_path` の値をWord2Vecモデルのパスに書き換えます。
 
     ```python
-    # WikiGolf_ja.py の main() 関数内
+    # WikiGolf_ja.py > main()
     model_path = 'jawiki.all_vectors.100d.txt'
     ```
 
 ## 実行
 
-1.  ターミナルでスクリプトを実行する。
+1.  ターミナルでスクリプトを実行します。
     ```bash
     python WikiGolf_ja.py
     ```
 
-2.  Wikipedia APIのユーザーエージェントとして使用するメールアドレスを入力する。  
+2.  Wikipedia APIのユーザーエージェントとして使用するメールアドレスを入力します。  
     これは、Wikipedia APIの利用規約に従うために必要です。
 
 3.  「Startページ」と「Goalページ」のタイトルをそれぞれ入力します。
